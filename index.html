@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist Tratos & Plantio - V160 (Mente Sincronizada) 🧠</title>
+    <title>Checklist Tratos & Plantio - V161 (Novas Frentes) 🚀</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
@@ -762,7 +762,7 @@ Cole um alerta e clique em FORMATAR...
         
         const file = fileUpload.files[0];
         const reader = new FileReader();
-        document.getElementById('resultado').innerText = `Iniciando Varredura (${modo.toUpperCase()}) V160... 🚀🧠`;
+        document.getElementById('resultado').innerText = `Iniciando Varredura (${modo.toUpperCase()}) V161... 🚀🧠`;
 
         reader.onload = async (e) => {
             await extrairFotosConfig(file);
@@ -782,7 +782,7 @@ Cole um alerta e clique em FORMATAR...
                     let frentesTurno = new Set();
                     let frentesChuva = new Set();
 
-                    const keywordsTratos = ["HERBICIDA", "CULTIVO", "COMPOSTO", "CORRETIVO", "VINHAÇA", "VINHACA", "LOCALIZADA", "QUEBRA LOMBO", "TRANSP", "SOQUEIRA", "ELIMINADOR", "CALDA", "APOIO"];
+                    const keywordsTratos = ["HERBICIDA", "CULTIVO", "COMPOSTO", "CORRETIVO", "VINHAÇA", "VINHACA", "LOCALIZADA", "QUEBRA LOMBO", "TRANSP", "SOQUEIRA", "ELIMINADOR", "CALDA", "APOIO", "LEGUMINOSA", "DESENLEIRAMENTO", "ADUBACAO", "ADUBAÇÃO"];
                     const now = new Date();
 
                     let pMap = {};
@@ -900,7 +900,10 @@ Cole um alerta e clique em FORMATAR...
                                                   safeIncludes(cell, "TRANSP") ? "TRANSP DE VINHAÇA" : 
                                                   safeIncludes(cell, "ELIMINADOR") ? "ELIMINADOR DE SOQUEIRA" : 
                                                   safeIncludes(cell, "SOQUEIRA") ? "CORTE SOQUEIRA" : 
-                                                  (safeIncludes(cell, "CALDA") || safeIncludes(cell, "APOIO")) ? "APOIO TRATOS - CALDA" : cell;
+                                                  (safeIncludes(cell, "CALDA") || safeIncludes(cell, "APOIO")) ? "APOIO TRATOS - CALDA" : 
+                                                  safeIncludes(cell, "LEGUMINOSA") ? "PLANTIO DE LEGUMINOSAS" : 
+                                                  safeIncludes(cell, "DESENLEIRAMENTO") ? "DESENLEIRAMENTO DE PALHA" : 
+                                                  (safeIncludes(cell, "ADUBACAO") || safeIncludes(cell, "ADUBAÇÃO")) ? "ADUBAÇÃO LÍQUIDA" : cell;
                                     }
                                 } else if (modo === 'plantio') {
                                     if (rows[r+1] && String(rows[r+1][c]).toUpperCase().trim() === "BLOCO" && cell !== "" && cell !== "O.S." && cell !== "O.S" && cell !== "OS") {
@@ -1277,9 +1280,9 @@ Cole um alerta e clique em FORMATAR...
 
                     let order = [];
                     if (modo === 'tratos') {
-                        order = ["HERBICIDA", "CULTIVO / Q LOMBO", "CULTIVO MINERAL", "CORTE SOQUEIRA", "ELIMINADOR DE SOQUEIRA", "SOQUEIRA", "COMPOSTO", "CORRETIVO", "VINHAÇA", "VINHACA", "LOCALIZADA", "TRANSP DE VINHAÇA", "APOIO TRATOS - CALDA"];
+                        order = ["HERBICIDA", "CULTIVO / Q LOMBO", "CULTIVO MINERAL", "CORTE SOQUEIRA", "ELIMINADOR DE SOQUEIRA", "SOQUEIRA", "COMPOSTO", "CORRETIVO", "ADUBAÇÃO LÍQUIDA", "VINHAÇA", "VINHACA", "LOCALIZADA", "TRANSP DE VINHAÇA", "APOIO TRATOS - CALDA", "DESENLEIRAMENTO DE PALHA", "PLANTIO DE LEGUMINOSAS"];
                     } else {
-                        order = ["FTE", "COL MUDA", "TR MUDA", "TRANSP MUDA", "PLANTADORA", "SUBSOLAGEM", "GRADAGEM", "CANTERIZA", "SULCADOR", "ELIMINADOR"];
+                        order = ["FTE", "COL MUDA", "TR MUDA", "TRANSP MUDA", "PLANTADORA", "SUBSOLAGEM", "GRADAGEM", "CANTERIZA", "SULCADOR", "ELIMINADOR", "PLANTIO DE LEGUMINOSAS"];
                     }
 
                     let sorted = Object.values(fData).sort((a,b) => {
@@ -1311,7 +1314,7 @@ Cole um alerta e clique em FORMATAR...
                         f.blocks.sort((a,b) => b.acts.length - a.acts.length);
                         
                         for (let bl of f.blocks) {
-                            // V160: Injeção da Memória Sincronizada (O.S. e BLOCO compartilhados)
+                            // V161: Injeção da Memória Sincronizada (O.S. e BLOCO compartilhados)
                             let bVal = bl.b ? bl.b.toString().toUpperCase().trim() : "";
                             let isBlocoVazio = !bVal || bVal === "N/A" || bVal === "-" || bVal === "0" || bVal === "N" || bVal === "NA" || bVal === "O.S." || bVal === "OS" || safeIncludes(["SJO", "AND", "CRZ", "TAN", "MAN", "VER"], bVal);
                             
